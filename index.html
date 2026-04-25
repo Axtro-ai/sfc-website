@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shikshantar Finance Committee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================
+       ROOT & RESET
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:      #0e0b07;
+      --parch:    #f5f0e8;
+      --gold:     #c9a84c;
+      --gold-lt:  #e3c97a;
+      --brown:    #2b1d0e;
+      --brown-md: #4a2e14;
+      --brown-lt: #7a5230;
+      --cream:    #ede8de;
+      --muted:    #9a8a72;
+      --line:     rgba(201,168,76,0.18);
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --display:  'Playfair Display', Georgia, serif;
+      --sans:     'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--ink);
+      color: var(--parch);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--gold); color: var(--ink); }
+
+    /* ============================
+       SCROLLBAR
+    ============================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--brown); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ============================
+       UTILITY
+    ============================ */
+    .gold      { color: var(--gold); }
+    .serif     { font-family: var(--serif); }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+    .tag       { font-family: var(--sans); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+
+    /* Section labels */
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 2rem; height: 1px; background: var(--gold);
+    }
+
+    h1, h2, h3, h4 { font-family: var(--display); font-weight: 700; line-height: 1.15; }
+
+    .btn {
+      display: inline-block; padding: 0.75rem 2rem;
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid; cursor: pointer;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease; z-index: 0;
+    }
+    .btn:hover::after { transform: scaleX(1); }
+    .btn span { position: relative; z-index: 1; }
+
+    .btn-primary {
+      background: var(--gold); color: var(--ink); border-color: var(--gold);
+    }
+    .btn-primary::after { background: var(--brown); }
+    .btn-primary:hover { color: var(--gold); }
+
+    .btn-outline {
+      background: transparent; color: var(--gold); border-color: var(--gold);
+    }
+    .btn-outline:hover { color: var(--ink); }
+
+    /* Divider */
+    .rule { width: 100%; height: 1px; background: var(--line); margin: 0; }
+
+    /* ============================
+       NAVBAR
+    ============================ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.1rem 0;
+      transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(14, 11, 7, 0.97);
+      padding: 0.7rem 0;
+      box-shadow: 0 1px 0 var(--line), 0 8px 32px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1160px; margin: 0 auto; padding: 0 2rem;
+    }
+    .nav-logo {
+      font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+      color: var(--parch); text-decoration: none; letter-spacing: 0.01em;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .nav-logo-mark {
+      width: 28px; height: 28px; border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 0.9rem; color: var(--gold);
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--sans); font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.25s ease; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1px; background: var(--gold); transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(14,11,7,0.98); z-index: 999; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: var(--display); font-size: 2rem; font-weight: 700;
+      color: var(--parch); text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+
+    /* ============================
+       HERO
+    ============================ */
+    #hero {
+      min-height: 100vh; position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 0 5rem; overflow: hidden;
+    }
+
+    /* Textured background */
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(74,46,20,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    }
+
+    /* Decorative grid lines */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* Large watermark */
+    .hero-watermark {
+      position: absolute; right: -4rem; top: 50%; transform: translateY(-50%);
+      font-family: var(--display); font-size: clamp(10rem, 18vw, 20rem);
+      font-weight: 900; line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.07);
+      pointer-events: none; user-select: none; white-space: nowrap;
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500;
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.8rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; height: 1px; background: var(--gold); flex-grow: 0; flex-shrink: 0;
+    }
+    .hero-eyebrow::before { width: 3rem; }
+    .hero-eyebrow::after  { width: 1rem; }
+
+    .hero-title {
+      font-family: var(--display); font-size: clamp(2.8rem, 6vw, 6rem);
+      font-weight: 900; line-height: 1.05; color: var(--parch);
+      margin-bottom: 0.6rem; max-width: 13ch;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-tagline {
+      font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 300; font-style: italic; color: var(--muted);
+      margin-bottom: 1.8rem; letter-spacing: 0.01em;
+    }
+
+    .hero-intro {
+      max-width: 54ch; font-size: 0.92rem; color: rgba(245,240,232,0.65);
+      line-height: 1.8; margin-bottom: 2.8rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Stats bar */
+    .hero-stats {
+      position: relative; z-index: 2;
+      display: flex; gap: 0; margin-top: 5rem;
+      border: 1px solid var(--line); border-radius: 0;
+      max-width: 640px;
+    }
+    .stat-item {
+      flex: 1; padding: 1.2rem 1.5rem; border-right: 1px solid var(--line);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--display); font-size: 1.7rem; font-weight: 700;
+      color: var(--gold); display: block; line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-top: 0.3rem; display: block;
+    }
+
+    /* ============================
+       SECTION COMMON
+    ============================ */
+    section { padding: 6rem 0; }
+
+    .section-header { margin-bottom: 3.5rem; }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem); color: var(--parch);
+      margin-bottom: 0.8rem;
+    }
+    .section-header p {
+      max-width: 56ch; font-size: 0.95rem; color: rgba(245,240,232,0.6); line-height: 1.8;
+    }
+
+    /* ============================
+       ABOUT
+    ============================ */
+    #about { background: var(--brown); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+
+    .about-quote {
+      font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700; font-style: italic; line-height: 1.25;
+      color: var(--parch); margin-bottom: 2rem;
+      padding-left: 1.5rem; border-left: 3px solid var(--gold);
+    }
+
+    .about-body { font-size: 0.93rem; color: rgba(245,240,232,0.7); line-height: 1.9; }
+    .about-body + .about-body { margin-top: 1.2rem; }
+
+    .pillars {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      border: 1px solid var(--line); margin-top: 3rem;
+    }
+    .pillar {
+      padding: 1.4rem 1.2rem; border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      transition: background 0.25s ease;
+    }
+    .pillar:hover { background: rgba(201,168,76,0.05); }
+    .pillar-icon { font-size: 1.2rem; margin-bottom: 0.6rem; }
+    .pillar-name {
+      font-family: var(--serif); font-size: 1rem; font-weight: 600;
+      color: var(--parch); letter-spacing: 0.02em;
+    }
+    .pillar-desc { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* ============================
+       INITIATIVES
+    ============================ */
+    #initiatives { background: var(--ink); }
+
+    .init-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      border: 1px solid var(--line);
+    }
+
+    .init-card {
+      padding: 2rem 1.6rem; border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative; overflow: hidden;
+      transition: background 0.3s ease;
+      cursor: default;
+    }
+    .init-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--gold);
+      transition: width 0.4s ease;
+    }
+    .init-card:hover { background: rgba(201,168,76,0.04); }
+    .init-card:hover::before { width: 100%; }
+
+    .init-number {
+      font-family: var(--serif); font-size: 2.5rem; font-weight: 300;
+      color: rgba(201,168,76,0.15); line-height: 1;
+      position: absolute; top: 1.2rem; right: 1.2rem;
+    }
+    .init-icon {
+      font-size: 1.5rem; margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px;
+      border: 1px solid var(--line); border-radius: 0;
+      color: var(--gold);
+    }
+    .init-name {
+      font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+      color: var(--parch); margin-bottom: 0.6rem;
+    }
+    .init-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    /* ============================
+       ETHOS — FEATURED
+    ============================ */
+    #ethos {
+      background: var(--brown);
+      position: relative; overflow: hidden;
+    }
+    #ethos::before {
+      content: 'ETHOS';
+      position: absolute; left: -2rem; top: 50%; transform: translateY(-50%);
+      font-family: var(--display); font-size: 22vw; font-weight: 900;
+      color: transparent; -webkit-text-stroke: 1px rgba(201,168,76,0.06);
+      pointer-events: none; user-select: none; line-height: 1;
+    }
+
+    .ethos-header {
+      text-align: center; position: relative; z-index: 2; margin-bottom: 4rem;
+    }
+    .ethos-header h2 {
+      font-size: clamp(3rem, 7vw, 6rem); color: var(--parch);
+      letter-spacing: -0.02em;
+    }
+    .ethos-header h2 em { color: var(--gold); font-style: italic; }
+    .ethos-tagline {
+      font-family: var(--serif); font-size: 1.1rem; font-style: italic;
+      color: var(--muted); margin-top: 0.6rem;
+    }
+
+    .ethos-desc {
+      max-width: 70ch; margin: 0 auto 4rem;
+      font-size: 1rem; color: rgba(245,240,232,0.7); line-height: 1.9;
+      text-align: center; position: relative; z-index: 2;
+    }
+
+    /* Timeline */
+    .ethos-timeline {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1px solid var(--line);
+    }
+    .timeline-step {
+      padding: 2rem 1.5rem; border-right: 1px solid var(--line);
+      position: relative;
+    }
+    .timeline-step:last-child { border-right: none; }
+    .timeline-step::after {
+      content: '→'; position: absolute; right: -0.6rem; top: 2rem;
+      color: var(--gold); font-size: 0.8rem; z-index: 3;
+    }
+    .timeline-step:last-child::after { display: none; }
+
+    .step-phase {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem;
+    }
+    .step-title {
+      font-family: var(--display); font-size: 1rem; font-weight: 700;
+      color: var(--parch); margin-bottom: 0.6rem;
+    }
+    .step-detail { font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
+
+    /* Ethos details grid */
+    .ethos-details {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      border: 1px solid var(--line); border-top: none; margin-top: 0;
+    }
+    .ethos-detail-item {
+      padding: 1.5rem; border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line); display: flex; gap: 1rem;
+      align-items: flex-start; transition: background 0.25s;
+    }
+    .ethos-detail-item:hover { background: rgba(201,168,76,0.04); }
+    .detail-bullet {
+      width: 6px; height: 6px; background: var(--gold);
+      flex-shrink: 0; margin-top: 0.5rem;
+    }
+    .detail-text { font-size: 0.83rem; color: rgba(245,240,232,0.7); line-height: 1.7; }
+    .detail-text strong { color: var(--parch); font-weight: 500; }
+
+    /* Budget callout */
+    .ethos-budget {
+      position: relative; z-index: 2;
+      border: 1px solid var(--gold); border-top: none;
+      padding: 2rem; text-align: center;
+      background: rgba(201,168,76,0.04);
+    }
+    .budget-label { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+    .budget-amount {
+      font-family: var(--display); font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 900; color: var(--parch); margin: 0.3rem 0;
+    }
+    .budget-note { font-size: 0.8rem; color: var(--muted); }
+
+    /* ============================
+       TEAM
+    ============================ */
+    #team { background: var(--ink); }
+
+    .team-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      border: 1px solid var(--line);
+    }
+
+    .team-member {
+      padding: 2rem; border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      position: relative; overflow: hidden;
+      transition: background 0.25s ease;
+    }
+    .team-member::before {
+      content: ''; position: absolute; left: 0; top: 0;
+      width: 2px; height: 0; background: var(--gold);
+      transition: height 0.3s ease;
+    }
+    .team-member:hover { background: rgba(201,168,76,0.04); }
+    .team-member:hover::before { height: 100%; }
+    .member-name {
+      font-family: var(--display); font-size: 1.15rem; font-weight: 700;
+      color: var(--parch);
+    }
+    .team-member.lead .member-name { font-size: 1.25rem; }
+    .member-tag {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-top: 0.4rem;
+    }
+
+    /* ============================
+       UPDATES
+    ============================ */
+    #updates { background: var(--brown); }
+
+    .updates-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+      border: 1px solid var(--line);
+    }
+
+    .update-card {
+      padding: 2rem; border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: relative; transition: background 0.25s ease;
+    }
+    .update-card:hover { background: rgba(201,168,76,0.05); }
+    .update-dot {
+      width: 8px; height: 8px; background: var(--gold);
+      border-radius: 50%; margin-bottom: 1rem; position: relative;
+    }
+    .update-dot::after {
+      content: ''; position: absolute; inset: -3px;
+      border: 1px solid rgba(201,168,76,0.3); border-radius: 50%;
+    }
+    .update-category {
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .update-title {
+      font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+      color: var(--parch); margin-bottom: 0.5rem;
+    }
+    .update-body { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .update-status {
+      display: inline-block; margin-top: 0.8rem;
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.3rem 0.7rem; border: 1px solid var(--gold); color: var(--gold);
+    }
+
+    /* ============================
+       JOIN
+    ============================ */
+    #join { background: var(--ink); overflow: hidden; position: relative; }
+
+    #join::before {
+      content: ''; position: absolute; top: -10rem; right: -10rem;
+      width: 40rem; height: 40rem; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .join-inner {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: center;
+    }
+    .join-body {
+      font-size: 0.93rem; color: rgba(245,240,232,0.65);
+      line-height: 1.85; margin: 1.5rem 0 2.5rem;
+    }
+    .join-features {
+      list-style: none; display: flex; flex-direction: column; gap: 0.7rem;
+      margin-bottom: 2.5rem;
+    }
+    .join-features li {
+      font-size: 0.85rem; color: rgba(245,240,232,0.6);
+      display: flex; gap: 0.8rem; align-items: flex-start;
+    }
+    .join-features li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+
+    .join-visual {
+      border: 1px solid var(--line); padding: 2.5rem;
+      position: relative;
+    }
+    .join-visual::before {
+      content: ''; position: absolute; top: 0.7rem; left: 0.7rem; right: -0.7rem; bottom: -0.7rem;
+      border: 1px solid var(--line); pointer-events: none; z-index: -1;
+    }
+    .join-visual-label {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .join-visual-title {
+      font-family: var(--display); font-size: 1.6rem; font-weight: 700;
+      color: var(--parch); margin-bottom: 1rem; line-height: 1.2;
+    }
+    .join-visual-body {
+      font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem;
+    }
+
+    /* ============================
+       CONTACT
+    ============================ */
+    #contact { background: var(--brown); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border: 1px solid var(--line);
+    }
+    .contact-col { padding: 3rem 2.5rem; }
+    .contact-col:first-child { border-right: 1px solid var(--line); }
+
+    .contact-heading {
+      font-family: var(--display); font-size: 1.5rem; font-weight: 700;
+      color: var(--parch); margin-bottom: 1.2rem;
+    }
+    .contact-body { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      font-family: var(--serif); font-size: 1rem; color: var(--gold);
+      text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding-bottom: 0.2rem; transition: border-color 0.25s, color 0.25s;
+    }
+    .contact-email:hover { border-color: var(--gold); color: var(--gold-lt); }
+
+    /* Simple form placeholder */
+    .form-note {
+      border: 1px solid var(--line); padding: 2rem;
+      background: rgba(201,168,76,0.02);
+    }
+    .form-note p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .form-note .btn { margin-top: 1.5rem; }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--ink); border-top: 1px solid var(--line);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-brand {
+      font-family: var(--display); font-size: 0.9rem; font-weight: 700;
+      color: var(--muted);
+    }
+    .footer-copy { font-size: 0.7rem; color: rgba(154,138,114,0.5); }
+    .footer-gold { color: var(--gold); }
+
+    /* ============================
+       REVEAL ANIMATION
+    ============================ */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .init-grid { grid-template-columns: repeat(2, 1fr); }
+      .ethos-timeline { grid-template-columns: repeat(2, 1fr); }
+      .timeline-step::after { display: none; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .join-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+      .ethos-details { grid-template-columns: 1fr; }
+      .updates-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .init-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+      .ethos-timeline { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--line); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+  ============================ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <div class="nav-logo-mark">Σ</div>
+        SFC
+      </a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#initiatives">Initiatives</a></li>
+        <li><a href="#ethos">Ethos</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#updates">Updates</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#hero"        onclick="closeMobileNav()">Home</a>
+    <a href="#about"       onclick="closeMobileNav()">About</a>
+    <a href="#initiatives" onclick="closeMobileNav()">Initiatives</a>
+    <a href="#ethos"       onclick="closeMobileNav()">Ethos</a>
+    <a href="#team"        onclick="closeMobileNav()">Team</a>
+    <a href="#updates"     onclick="closeMobileNav()">Updates</a>
+    <a href="#contact"     onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <!-- ============================
+       HERO
+  ============================ -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-watermark">SFC</div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Shikshantar School &nbsp;·&nbsp; Finance Committee</div>
+
+        <h1 class="hero-title">
+          Where Capital<br>Meets <em>Clarity.</em>
+        </h1>
+
+        <p class="hero-tagline">Think rigorously. Act decisively. Build deliberately.</p>
+
+        <p class="hero-intro">
+          The Shikshantar Finance Committee is a student-led platform for finance education, business discussions, entrepreneurship, competitions, and applied learning.
+        </p>
+
+        <div class="hero-btns">
+          <a href="#initiatives" class="btn btn-primary"><span>Explore Initiatives</span></a>
+          <a href="#ethos"       class="btn btn-outline"><span>Discover Ethos</span></a>
+        </div>
+      </div>
+
+      <div class="hero-stats reveal">
+        <div class="stat-item">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Active Initiatives</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Ethos</span>
+          <span class="stat-label">Flagship Event</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Members</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       ABOUT
+  ============================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="reveal">
+          <div class="section-label">About</div>
+          <blockquote class="about-quote">
+            "Finance is not just numbers — it is the language of decisions."
+          </blockquote>
+          <p class="about-body">
+            The Shikshantar Finance Committee exists to close the gap between classroom economics and the real world. We believe that financial fluency is not a privilege — it is a skill every serious student must develop.
+          </p>
+          <p class="about-body" style="margin-top:1rem;">
+            Through structured workshops, live market discussions, entrepreneurship programmes, and rigorous case competitions, we equip students with the frameworks, vocabulary, and judgment required in business, finance, and beyond.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <div class="section-label">Pillars</div>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-icon">◈</div>
+              <div class="pillar-name">Financial Literacy</div>
+              <div class="pillar-desc">From personal finance to macro-economics, grounded in rigour.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◈</div>
+              <div class="pillar-name">Market Awareness</div>
+              <div class="pillar-desc">Tracking real markets, analysing data, and forming views.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◈</div>
+              <div class="pillar-name">Entrepreneurship</div>
+              <div class="pillar-desc">Building ideas into structured, fundable ventures.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">◈</div>
+              <div class="pillar-name">Applied Learning</div>
+              <div class="pillar-desc">Competitions, simulations, and real problem-solving.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       INITIATIVES
+  ============================ -->
+  <section id="initiatives">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Initiatives</div>
+        <h2>What We Do</h2>
+        <p>Nine distinct programmes designed to build financial acumen, analytical skill, and entrepreneurial thinking — from the classroom to the boardroom.</p>
+      </div>
+
+      <div class="init-grid reveal">
+
+        <div class="init-card">
+          <div class="init-number">01</div>
+          <div class="init-icon">📊</div>
+          <div class="init-name">Finance Education</div>
+          <div class="init-desc">Structured sessions on financial fundamentals — budgeting, interest, valuation, compounding, and macroeconomic frameworks — delivered peer-to-peer.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">02</div>
+          <div class="init-icon">🛠</div>
+          <div class="init-name">Workshops</div>
+          <div class="init-desc">Hands-on workshops covering financial modelling basics, business strategy, reading balance sheets, and understanding investment instruments.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">03</div>
+          <div class="init-icon">📈</div>
+          <div class="init-name">Market Discussions</div>
+          <div class="init-desc">Structured sessions on live markets — equities, macro events, sector analysis, and economic data. Students form positions, back them with evidence, and defend them under questioning.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">04</div>
+          <div class="init-icon">💡</div>
+          <div class="init-name">Entrepreneurship</div>
+          <div class="init-desc">Mentored ideation and planning programmes where students develop business models, build financial projections, and solve real-world problems.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">05</div>
+          <div class="init-icon">🏛</div>
+          <div class="init-name">Case Study Competitions <span style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);font-weight:500;vertical-align:middle;margin-left:0.4rem;">Planned</span></div>
+          <div class="init-desc">Teams diagnose real business problems, apply strategic frameworks, and present structured recommendations. Internal rounds and facilitated entry to external competitions.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">06</div>
+          <div class="init-icon">📉</div>
+          <div class="init-name">Mock Trading <span style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);font-weight:500;vertical-align:middle;margin-left:0.4rem;">Planned</span></div>
+          <div class="init-desc">Simulated trading exercises mirroring real exchange mechanics — participants analyse securities, manage portfolios, and face the discipline of loss and risk management.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">07</div>
+          <div class="init-icon">🌐</div>
+          <div class="init-name">External Competitions</div>
+          <div class="init-desc">Facilitated entries to national and global competitions including the Wharton Global High School Investment Competition, national finance olympiads, and business plan contests.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">08</div>
+          <div class="init-icon">🎬</div>
+          <div class="init-name">Film & Book Discussions</div>
+          <div class="init-desc">Analytical discussions around finance films — <em>Margin Call, The Big Short, Too Big to Fail</em> — and books on economic thought, investing philosophy, and market history.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">09</div>
+          <div class="init-icon">🧮</div>
+          <div class="init-name">Financial Modelling Basics</div>
+          <div class="init-desc">Introduction to DCF, three-statement modelling, sensitivity analysis, and basic valuation techniques — the foundation of analytical finance.</div>
+        </div>
+
+        <div class="init-card">
+          <div class="init-number">10</div>
+          <div class="init-icon">🔬</div>
+          <div class="init-name">Research Initiatives <span style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);font-family:var(--sans);font-weight:500;vertical-align:middle;margin-left:0.4rem;">Planned</span></div>
+          <div class="init-desc">Student-led research on sectors, companies, and economic themes — building the habit of forming and communicating well-structured, evidence-backed views in writing.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       ETHOS
+  ============================ -->
+  <section id="ethos">
+    <div class="container">
+      <div class="ethos-header reveal">
+        <div class="section-label" style="justify-content:center; margin-bottom:1.5rem;">Flagship Event</div>
+        <h2><em>Ethos</em></h2>
+        <p class="ethos-tagline">Built on Thought. Proven in Action.</p>
+      </div>
+
+      <p class="ethos-desc reveal">
+        Ethos is the Finance Committee's flagship entrepreneurship and startup pitch event. It is not a creativity contest or a performance exercise. It is a structured, multi-stage programme that demands execution, financial discipline, and the willingness to defend every decision under genuine scrutiny. Entry is open — completion is earned.
+      </p>
+
+      <!-- Timeline -->
+      <div class="ethos-timeline reveal" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="timeline-step">
+          <div class="step-phase">Stage 01</div>
+          <div class="step-title">Workshop & Incubation</div>
+          <div class="step-detail">A mandatory foundation workshop covering business fundamentals, financial discipline, and prototype expectations. Teams immediately enter incubation — working with Finance Committee consultants to refine their idea, build their model, and prepare their pitch. Product reviews and progress monitoring happen throughout this stage.</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-phase">Stage 02</div>
+          <div class="step-title">Development & Review</div>
+          <div class="step-detail">Teams develop a working prototype, digital mockup, or demonstrable service — ideas alone are not accepted. Consultants advise on financial structure and feasibility but do not execute on the team's behalf. Consistency and commitment during this phase matter.</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-phase">Stage 03</div>
+          <div class="step-title">Demo Day</div>
+          <div class="step-detail">Final presentations to a panel of judges. Three minutes to pitch, two minutes of Q&A, one minute of rapid fire. A working prototype is non-negotiable. Audience members score teams independently, contributing 30% of the final evaluation.</div>
+        </div>
+      </div>
+
+      <!-- Details grid -->
+      <div class="ethos-details reveal">
+        <div class="ethos-detail-item">
+          <div class="detail-bullet"></div>
+          <div class="detail-text"><strong>Ideas alone are not enough.</strong> Every team must present a working prototype, digital mockup, or demonstrable service. Theoretical pitches are not accepted.</div>
+        </div>
+        <div class="ethos-detail-item">
+          <div class="detail-bullet"></div>
+          <div class="detail-text"><strong>Consultants guide — not execute.</strong> Teams retain full ownership. The Finance Committee advises on financial structure, feasibility, and pitch rigour.</div>
+        </div>
+        <div class="ethos-detail-item">
+          <div class="detail-bullet"></div>
+          <div class="detail-text"><strong>Consistency is evaluated.</strong> Ethos rewards teams that show up, stay engaged, and build steadily — not those who sprint at the last minute.</div>
+        </div>
+        <div class="ethos-detail-item">
+          <div class="detail-bullet"></div>
+          <div class="detail-text"><strong>Audience participates.</strong> Student evaluators contribute 30% of the final score. Engagement is built into the format — not bolted on.</div>
+        </div>
+        <div class="ethos-detail-item">
+          <div class="detail-bullet"></div>
+          <div class="detail-text"><strong>Rapid fire under pressure.</strong> Questions like "What is your single biggest cost risk?" and "Name your top competitor" — answered live, without notes.</div>
+        </div>
+        <div class="ethos-detail-item">
+          <div class="detail-bullet"></div>
+          <div class="detail-text"><strong>Four awards recognise what matters.</strong> Best Overall, Best Working Prototype, Investor's Choice, and Honourable Mention — judged on discipline, execution, and consistency.</div>
+        </div>
+      </div>
+
+      <!-- Callout -->
+      <div class="ethos-budget reveal">
+        <div class="budget-label">What Ethos Rewards</div>
+        <div class="budget-amount" style="font-size: clamp(1.4rem, 3vw, 2.2rem); letter-spacing: -0.01em;">Discipline. Clarity. Execution.</div>
+        <div class="budget-note">Not buzzwords. Not surface-level ideas. Not theoretical thinking unsupported by evidence. Ethos is designed to leave participants not just with recognition — but with a capability.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       TEAM
+  ============================ -->
+  <section id="team">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">People</div>
+        <h2>Core Team</h2>
+        <p>The Finance Committee is led by a core group of students who believe in doing the work — not just talking about it.</p>
+      </div>
+
+      <div class="team-grid reveal">
+        <div class="team-member lead">
+          <div class="member-name">Avyukt Govil</div>
+          <div class="member-tag">Core Team</div>
+        </div>
+        <div class="team-member">
+          <div class="member-name">Iqbal Singh</div>
+          <div class="member-tag">Core Team</div>
+        </div>
+        <div class="team-member">
+          <div class="member-name">Aviitej Singh Bajwa</div>
+          <div class="member-tag">Core Team</div>
+        </div>
+        <div class="team-member">
+          <div class="member-name">Jaiveer M Singh</div>
+          <div class="member-tag">Core Team</div>
+        </div>
+        <div class="team-member">
+          <div class="member-name">Veydant Badrinath</div>
+          <div class="member-tag">Core Team</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       UPDATES
+  ============================ -->
+  <section id="updates">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Updates</div>
+        <h2>Announcements</h2>
+        <p>What's happening at the Finance Committee — stay current.</p>
+      </div>
+
+      <div class="updates-grid reveal">
+        <div class="update-card">
+          <div class="update-dot"></div>
+          <div class="update-category">Flagship Event</div>
+          <div class="update-title">Ethos Registrations Opening Soon</div>
+          <div class="update-body">The Finance Committee's flagship entrepreneurship pitch event, Ethos, will open registrations shortly. More details on the workshop date, format, and eligibility to follow.</div>
+          <span class="update-status">Coming Soon</span>
+        </div>
+        <div class="update-card">
+          <div class="update-dot"></div>
+          <div class="update-category">Digital</div>
+          <div class="update-title">Finance Committee Website Live</div>
+          <div class="update-body">The official SFC website is now live. This platform will serve as the central hub for all initiatives, announcements, team information, and future registration links.</div>
+          <span class="update-status">Live Now</span>
+        </div>
+        <div class="update-card">
+          <div class="update-dot"></div>
+          <div class="update-category">Workshops</div>
+          <div class="update-title">Workshop Schedule Incoming</div>
+          <div class="update-body">Dates for the term's first Finance Education workshop and Market Discussion session are being finalised. Expect structured sessions on fundamentals, markets, and modelling.</div>
+          <span class="update-status">Upcoming</span>
+        </div>
+        <div class="update-card">
+          <div class="update-dot"></div>
+          <div class="update-category">Initiatives</div>
+          <div class="update-title">New Programmes This Term</div>
+          <div class="update-body">Financial Modelling Basics and Film & Book Discussion formats are being formalised for this academic term. Mock Trading infrastructure is also under development.</div>
+          <span class="update-status">In Progress</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       MEMBERSHIP NOTE (no open join)
+  ============================ -->
+  <section id="join" style="background: var(--ink); padding: 4rem 0;">
+    <div class="container">
+      <div style="border: 1px solid var(--line); padding: 3rem; max-width: 860px; position: relative; overflow: hidden;">
+        <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle at top right, rgba(201,168,76,0.06),transparent 70%);pointer-events:none;"></div>
+        <div class="section-label">Membership</div>
+        <h2 style="font-size: clamp(1.6rem,3vw,2.4rem); color: var(--parch); margin-bottom: 1rem;">The Finance Committee is not an open club.</h2>
+        <p style="font-size:0.93rem; color: rgba(245,240,232,0.6); line-height:1.85; max-width:58ch; margin-bottom:2rem;">
+          Core membership is by invitation only — drawn from students who have demonstrated seriousness, intellectual engagement, and the ability to build and contribute meaningfully. However, the committee's workshops, discussions, and events are open to a wider audience. If you are interested in Ethos or any of our initiatives, reach out.
+        </p>
+        <a href="#contact" class="btn btn-outline"><span>Get in Touch</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ============================
+       CONTACT
+  ============================ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Contact</div>
+        <h2>Reach Us</h2>
+      </div>
+
+      <div class="contact-grid reveal">
+        <div class="contact-col">
+          <div class="contact-heading">Get in Touch</div>
+          <p class="contact-body">
+            Questions about Ethos, our initiatives, or the Finance Committee? We read every message and will respond directly.
+          </p>
+          <a href="mailto:shikshantarfinanceclub@gmail.com" class="contact-email">
+            ✉ &nbsp;shikshantarfinanceclub@gmail.com
+          </a>
+        </div>
+        <div class="contact-col">
+          <div class="contact-heading">Enquiry Form</div>
+          <div class="form-note">
+            <p>Use the form below to register your interest in joining the committee, ask questions about Ethos, or reach out about any of our initiatives. We will respond promptly.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNM-VtVvtkRkQeqTk_S4SDCDhDA33wylLvr77bnrlPtgTsQA/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-outline"><span>Open Enquiry Form</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Shikshantar <span class="footer-gold">Finance Committee</span></div>
+      <div class="footer-copy">© 2025 Shikshantar Finance Committee · Student-led · All rights reserved</div>
+    </div>
+  </footer>
+
+  <!-- ============================
+       JAVASCRIPT
+  ============================ -->
+  <script>
+    /* --- Navbar scroll behaviour --- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* --- Hamburger menu --- */
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeMobileNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* --- Reveal on scroll --- */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Stagger children if applicable
+          const children = entry.target.querySelectorAll(':scope > *');
+          children.forEach((child, i) => {
+            child.style.transitionDelay = `${i * 60}ms`;
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* --- Active nav link highlighting --- */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const activeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.style.color = link.getAttribute('href') === `#${entry.target.id}` ? 'var(--gold)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => activeObserver.observe(s));
+
+    /* --- Hero subtle parallax on grid --- */
+    const heroGrid = document.querySelector('.hero-grid');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < window.innerHeight) {
+        heroGrid.style.transform = `translateY(${window.scrollY * 0.15}px)`;
+      }
+    });
+  </script>
+
+</body>
+</html>
